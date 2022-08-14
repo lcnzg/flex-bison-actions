@@ -19,12 +19,25 @@ jobs:
       - name: Make build
         run: make build
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: binary
+          path: ./*.bin
+          if-no-files-found: error
+
   test:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: binary
+
+      - name: Fix binary permissions
+        run: chmod +x *.bin
 
       - name: Make test
         run: make test

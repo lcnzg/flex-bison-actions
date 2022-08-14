@@ -6,7 +6,7 @@ all: build test
 
 build: $(NAME).bin
 
-test:
+test: $(NAME).bin
 	./$(NAME).bin < test.$(NAME)
 
 clean:
