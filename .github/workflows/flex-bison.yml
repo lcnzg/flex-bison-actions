@@ -1,0 +1,30 @@
+name: Flex Bison CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install apt packages
+        run: sudo apt install build-essential flex bison
+
+      - name: Make build
+        run: make build
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Make test
+        run: make test
